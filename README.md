@@ -3,6 +3,10 @@
 A full-stack web application built with **Python Flask** and **SQLite** that allows patients to register, log in, browse doctors, and book appointments online.
 
 ---
+Live Demo:
+https://prescripto-doctor-appointment-4xdh.onrender.com
+
+---
 
 ## 📋 Table of Contents
 
