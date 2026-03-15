@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login — Prescripto</title>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="auth-page">
+
+  <!-- LEFT PANEL -->
+  <div class="auth-left">
+    <div class="auth-left-content">
+      <a href="/" class="nav-brand" style="margin-bottom:40px;display:flex;align-items:center;gap:10px;text-decoration:none;">
+        <div class="logo-icon">🩺</div>
+        <span style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:white;">Prescripto</span>
+      </a>
+      <h2>Welcome back to better healthcare</h2>
+      <p>Sign in to manage your appointments, view your medical history, and connect with your doctors.</p>
+
+      <div class="auth-features" style="margin-top:40px;">
+        <div class="auth-feature-item">
+          <div class="auth-feature-icon">📅</div>
+          <span>View and manage upcoming appointments</span>
+        </div>
+        <div class="auth-feature-item">
+          <div class="auth-feature-icon">📊</div>
+          <span>Track your complete health history</span>
+        </div>
+        <div class="auth-feature-item">
+          <div class="auth-feature-icon">💬</div>
+          <span>Message your doctor directly</span>
+        </div>
+      </div>
+
+      <!-- Decorative stats card -->
+      <div style="margin-top:48px; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.12); border-radius:16px; padding:20px 24px;">
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">Today's Overview</div>
+        <div style="display:flex;gap:24px;">
+          <div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:white;">24</div>
+            <div style="font-size:0.8rem;color:rgba(255,255,255,0.4);">Appointments</div>
+          </div>
+          <div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:var(--teal);">12</div>
+            <div style="font-size:0.8rem;color:rgba(255,255,255,0.4);">Available Slots</div>
+          </div>
+          <div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:#fbbf24;">8</div>
+            <div style="font-size:0.8rem;color:rgba(255,255,255,0.4);">Doctors Online</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="auth-right">
+    <div class="auth-form-wrap">
+      <div class="form-logo">
+        <div class="logo-icon">🩺</div>
+        <span>Prescripto</span>
+      </div>
+
+      <h3>Welcome Back</h3>
+      <p class="subtitle">Sign in to your account</p>
+
+      <!-- Role Toggle -->
+      <div style="display:flex;background:var(--gray-100);border-radius:10px;padding:4px;margin-bottom:28px;">
+        <button onclick="setRole('patient')" id="role-patient"
+          style="flex:1;padding:9px;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.88rem;cursor:pointer;transition:all 0.2s;background:var(--navy);color:white;">
+          👤 Patient
+        </button>
+        <button onclick="setRole('doctor')" id="role-doctor"
+          style="flex:1;padding:9px;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.88rem;cursor:pointer;transition:all 0.2s;background:transparent;color:var(--gray-600);">
+          🩺 Doctor
+        </button>
+        <button onclick="setRole('admin')" id="role-admin"
+          style="flex:1;padding:9px;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.88rem;cursor:pointer;transition:all 0.2s;background:transparent;color:var(--gray-600);">
+          🛡️ Admin
+        </button>
+      </div>
+
+      <form method="POST" action="/login" id="loginForm">
+        <input type="hidden" name="role" id="roleInput" value="patient">
+
+        <div class="form-group">
+          <label>Email Address</label>
+          <div class="input-wrap">
+            <span class="input-icon">✉️</span>
+            <input type="email" name="email" placeholder="your@email.com" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <div class="input-wrap">
+            <span class="input-icon">🔒</span>
+            <input type="password" name="password" id="pw" placeholder="Enter your password" required>
+            <button type="button" onclick="togglePw()"
+              style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;" id="pwToggle">👁️</button>
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+          <label style="display:flex;align-items:center;gap:8px;font-size:0.85rem;color:var(--gray-600);cursor:pointer;">
+            <input type="checkbox" name="remember" style="accent-color:var(--teal);">
+            Remember me
+          </label>
+          <a href="#" style="font-size:0.85rem;color:var(--teal-dark);font-weight:600;text-decoration:none;">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn-submit">Sign In →</button>
+
+        <div class="form-divider">or continue with</div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <button type="button" onclick="showToast('Google login coming soon!', 'success')"
+            style="padding:10px;border:1.5px solid var(--gray-200);border-radius:10px;background:white;font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:600;color:var(--gray-700);cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;">
+            🔵 Google
+          </button>
+          <button type="button" onclick="showToast('Phone login coming soon!', 'success')"
+            style="padding:10px;border:1.5px solid var(--gray-200);border-radius:10px;background:white;font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:600;color:var(--gray-700);cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;">
+            📱 Phone OTP
+          </button>
+        </div>
+      </form>
+
+      <div class="form-footer" style="margin-top:20px;">
+        Don't have an account? <a href="/register">Create one →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+<script src="/static/js/script.js"></script>
+<script>
+  let currentRole = 'patient';
+
+  function setRole(role) {
+    currentRole = role;
+    document.getElementById('roleInput').value = role;
+    ['patient','doctor','admin'].forEach(r => {
+      const btn = document.getElementById('role-' + r);
+      btn.style.background = r === role ? 'var(--navy)' : 'transparent';
+      btn.style.color = r === role ? 'white' : 'var(--gray-600)';
+    });
+  }
+
+  function togglePw() {
+    const pw = document.getElementById('pw');
+    const toggle = document.getElementById('pwToggle');
+    if (pw.type === 'password') { pw.type = 'text'; toggle.textContent = '🙈'; }
+    else { pw.type = 'password'; toggle.textContent = '👁️'; }
+  }
+</script>
+</body>
+</html>

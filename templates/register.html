@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register — Prescripto</title>
+<link rel="stylesheet" href="/static/css/style.css">
+<style>
+  html, body { height: 100%; }
+  .auth-page { min-height: 100vh; }
+
+  /* Fix icon vertical alignment for all input types */
+  .input-wrap { position: relative; }
+  .input-icon {
+    position: absolute; left: 13px; top: 50%; transform: translateY(-50%);
+    font-size: 15px; line-height: 1; pointer-events: none; z-index: 2;
+    display: flex; align-items: center; height: 20px;
+  }
+  input[type="date"] { padding-left: 42px !important; cursor: pointer; }
+
+  .auth-form-wrap .form-group { margin-bottom: 16px; }
+  .auth-form-wrap h3 { margin-bottom: 4px; }
+
+  /* Error states */
+  .input-wrap input.error,
+  .input-wrap select.error {
+    border-color: #ef4444 !important;
+    background: #fff5f5 !important;
+  }
+  .field-error {
+    font-size: 0.75rem; color: #ef4444;
+    margin-top: 5px; display: none;
+  }
+  .field-error.show { display: block; }
+  .pw-match-hint { font-size: 0.75rem; margin-top: 5px; min-height: 16px; }
+</style>
+</head>
+<body>
+
+<div class="auth-page">
+
+  <!-- LEFT PANEL -->
+  <div class="auth-left">
+    <div class="auth-left-content">
+      <a href="/" style="margin-bottom:40px;display:flex;align-items:center;gap:10px;text-decoration:none;">
+        <div class="logo-icon">🩺</div>
+        <span style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:white;">Prescripto</span>
+      </a>
+      <h2>Join thousands of patients getting better care</h2>
+      <p>Create your free account and start booking appointments with India's top doctors — quickly and securely.</p>
+      <div class="auth-features">
+        <div class="auth-feature-item">
+          <div class="auth-feature-icon">⚡</div>
+          <span>Book appointments in under 2 minutes</span>
+        </div>
+        <div class="auth-feature-item">
+          <div class="auth-feature-icon">📋</div>
+          <span>Access your full appointment history</span>
+        </div>
+        <div class="auth-feature-item">
+          <div class="auth-feature-icon">🔔</div>
+          <span>Get smart reminders before your visit</span>
+        </div>
+        <div class="auth-feature-item">
+          <div class="auth-feature-icon">🔒</div>
+          <span>Your data is 100% private and encrypted</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="auth-right">
+    <div class="auth-form-wrap" style="width:100%;max-width:360px;padding:20px 0;">
+
+      <div class="form-logo">
+        <div class="logo-icon">🩺</div>
+        <span>Prescripto</span>
+      </div>
+
+      <h3>Create Account</h3>
+      <p class="subtitle">Fill in your details to get started</p>
+
+      <form method="POST" action="/register" id="registerForm" novalidate>
+
+        <!-- First + Last Name -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+          <div class="form-group" style="margin-bottom:0;">
+            <label for="first_name">First Name <span style="color:#ef4444;">*</span></label>
+            <div class="input-wrap">
+              <span class="input-icon">👤</span>
+              <input type="text" id="first_name" name="first_name" placeholder="Rahul" autocomplete="given-name">
+            </div>
+            <div class="field-error" id="err-first_name">First name is required</div>
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label for="last_name">Last Name <span style="color:#ef4444;">*</span></label>
+            <div class="input-wrap">
+              <span class="input-icon">👤</span>
+              <input type="text" id="last_name" name="last_name" placeholder="Sharma" autocomplete="family-name">
+            </div>
+            <div class="field-error" id="err-last_name">Last name is required</div>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Email Address <span style="color:#ef4444;">*</span></label>
+          <div class="input-wrap">
+            <span class="input-icon">✉️</span>
+            <input type="email" id="email" name="email" placeholder="rahul@example.com" autocomplete="email">
+          </div>
+          <div class="field-error" id="err-email">Enter a valid email address</div>
+        </div>
+
+        <!-- Phone -->
+        <div class="form-group">
+          <label for="phone">Phone Number <span style="color:#ef4444;">*</span></label>
+          <div class="input-wrap">
+            <span class="input-icon">📱</span>
+            <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" autocomplete="tel">
+          </div>
+          <div class="field-error" id="err-phone">Enter a valid 10-digit phone number</div>
+        </div>
+
+        <!-- DOB + Gender -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+          <div class="form-group" style="margin-bottom:0;">
+            <label for="dob">Date of Birth</label>
+            <div class="input-wrap">
+              <!-- No extra icon — browser's native date picker already shows a calendar icon -->
+              <input type="date" id="dob" name="dob" autocomplete="bday" style="padding-left:14px !important;">
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label for="gender">Gender</label>
+            <div class="input-wrap">
+              <span class="input-icon" style="font-size:12px;font-weight:800;color:#94a3b8;letter-spacing:-1px;">M/F</span>
+              <select id="gender" name="gender">
+                <option value="" disabled selected>Select</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+                <option value="prefer_not">Prefer not to say</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="password">Password <span style="color:#ef4444;">*</span></label>
+          <div class="input-wrap">
+            <span class="input-icon">🔒</span>
+            <input type="password" id="password" name="password" placeholder="Min. 8 characters" autocomplete="new-password">
+            <button type="button" id="togglePw"
+              style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:15px;color:#94a3b8;padding:0;line-height:1;">
+              👁
+            </button>
+          </div>
+          <div style="margin-top:8px;height:4px;border-radius:4px;background:var(--gray-200);overflow:hidden;">
+            <div id="strength-fill" style="height:100%;width:0;transition:all 0.3s;border-radius:4px;"></div>
+          </div>
+          <div id="strength-label" style="font-size:0.73rem;margin-top:4px;min-height:16px;color:var(--gray-400);"></div>
+          <div class="field-error" id="err-password">Password must be at least 8 characters</div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="form-group">
+          <label for="confirm_password">Confirm Password <span style="color:#ef4444;">*</span></label>
+          <div class="input-wrap">
+            <span class="input-icon">🔒</span>
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Re-enter password" autocomplete="new-password">
+            <button type="button" id="toggleCpw"
+              style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:15px;color:#94a3b8;padding:0;line-height:1;">
+              👁
+            </button>
+          </div>
+          <div class="pw-match-hint" id="pw-match-hint"></div>
+          <div class="field-error" id="err-confirm_password">Passwords do not match</div>
+        </div>
+
+        <!-- Terms -->
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;">
+          <input type="checkbox" id="terms" name="terms"
+            style="width:16px;height:16px;margin-top:3px;accent-color:var(--teal);flex-shrink:0;cursor:pointer;">
+          <label for="terms" style="font-size:0.82rem;color:var(--gray-600);cursor:pointer;line-height:1.5;">
+            I agree to the
+            <a href="#" style="color:var(--teal-dark);font-weight:600;">Terms of Service</a>
+            and <a href="#" style="color:var(--teal-dark);font-weight:600;">Privacy Policy</a>
+          </label>
+        </div>
+        <div class="field-error" id="err-terms" style="margin-bottom:12px;">Please accept the terms to continue</div>
+
+        <button type="submit" class="btn-submit" id="submitBtn" style="margin-top:8px;">
+          Create My Account →
+        </button>
+
+      </form>
+
+      <div class="form-footer" style="margin-top:20px;">
+        Already have an account? <a href="/login">Sign in →</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+<script src="/static/js/script.js"></script>
+<script>
+  const pwInput   = document.getElementById('password');
+  const fill      = document.getElementById('strength-fill');
+  const strLabel  = document.getElementById('strength-label');
+  const cpwInput  = document.getElementById('confirm_password');
+  const matchHint = document.getElementById('pw-match-hint');
+
+  /* ── Password strength ── */
+  pwInput.addEventListener('input', function () {
+    const val = this.value;
+    let score = 0;
+    if (val.length >= 8)           score++;
+    if (/[A-Z]/.test(val))         score++;
+    if (/[0-9]/.test(val))         score++;
+    if (/[^A-Za-z0-9]/.test(val))  score++;
+
+    const levels = [
+      { color: '#ef4444', text: 'Weak',   width: '25%' },
+      { color: '#f97316', text: 'Fair',   width: '50%' },
+      { color: '#eab308', text: 'Good',   width: '75%' },
+      { color: '#22c55e', text: 'Strong', width: '100%' },
+    ];
+    if (val.length === 0) { fill.style.width = '0'; strLabel.textContent = ''; return; }
+    const lvl = levels[Math.max(0, score - 1)];
+    fill.style.width      = lvl.width;
+    fill.style.background = lvl.color;
+    strLabel.textContent  = 'Strength: ' + lvl.text;
+    strLabel.style.color  = lvl.color;
+    updateMatchHint();
+  });
+
+  /* ── Confirm password live check ── */
+  cpwInput.addEventListener('input', updateMatchHint);
+
+  function updateMatchHint() {
+    const pw  = pwInput.value;
+    const cpw = cpwInput.value;
+    if (!cpw) { matchHint.textContent = ''; return; }
+    if (pw === cpw) {
+      matchHint.textContent  = '✅ Passwords match';
+      matchHint.style.color  = '#22c55e';
+    } else {
+      matchHint.textContent  = '❌ Passwords do not match';
+      matchHint.style.color  = '#ef4444';
+    }
+  }
+
+  /* ── Toggle password visibility ── */
+  document.getElementById('togglePw').addEventListener('click', function () {
+    const isPassword = pwInput.type === 'password';
+    pwInput.type   = isPassword ? 'text' : 'password';
+    this.textContent = isPassword ? '🙈' : '👁';
+  });
+
+  /* ── Toggle confirm password visibility ── */
+  document.getElementById('toggleCpw').addEventListener('click', function () {
+    const isPassword = cpwInput.type === 'password';
+    cpwInput.type    = isPassword ? 'text' : 'password';
+    this.textContent = isPassword ? '🙈' : '👁';
+  });
+
+  /* ── Client-side validation on submit ── */
+  document.getElementById('registerForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    let valid = true;
+
+    function setError(fieldId, hasError) {
+      const errEl = document.getElementById('err-' + fieldId);
+      const inpEl = document.getElementById(fieldId);
+      if (errEl) errEl.classList.toggle('show', hasError);
+      if (inpEl) inpEl.classList.toggle('error', hasError);
+      if (hasError) valid = false;
+    }
+
+    // Reset all errors
+    ['first_name','last_name','email','phone','password','confirm_password','terms'].forEach(id => setError(id, false));
+
+    const firstName   = document.getElementById('first_name').value.trim();
+    const lastName    = document.getElementById('last_name').value.trim();
+    const email       = document.getElementById('email').value.trim();
+    const phone       = document.getElementById('phone').value.trim();
+    const password    = document.getElementById('password').value;
+    const confirmPass = document.getElementById('confirm_password').value;
+    const terms       = document.getElementById('terms').checked;
+
+    if (!firstName)                              setError('first_name', true);
+    if (!lastName)                               setError('last_name', true);
+    if (!email || !/\S+@\S+\.\S+/.test(email))  setError('email', true);
+    if (!phone || phone.replace(/\D/g,'').length < 10) setError('phone', true);
+    if (!password || password.length < 8)        setError('password', true);
+    if (!confirmPass || confirmPass !== password) setError('confirm_password', true);
+    if (!terms)                                  setError('terms', true);
+
+    if (!valid) {
+      showToast('Please fix the errors highlighted above', 'error');
+      const firstErr = document.querySelector('.field-error.show');
+      if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // Make sure button is never stuck disabled
+      const btn = document.getElementById('submitBtn');
+      btn.textContent  = 'Create My Account →';
+      btn.disabled     = false;
+      btn.style.opacity = '1';
+      return;
+    }
+
+    // Submit
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = '⏳ Creating account...';
+    btn.disabled    = true;
+    btn.style.opacity = '0.8';
+    this.submit();
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prescripto — Doctor Appointment System</title>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <a href="/" class="nav-brand">
+    <div class="logo-icon">🩺</div>
+    <span>Prescripto</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/doctors">Doctors</a></li>
+    <li><a href="/appointment">Book Appointment</a></li>
+    <li><a href="/register">Register</a></li>
+    <li><a href="/login" class="btn-nav">Login →</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-blob hero-blob-1"></div>
+  <div class="hero-blob hero-blob-2"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">✦ Trusted Healthcare Platform</div>
+    <h1>Your Health,<br>Our <em>Priority</em></h1>
+    <p>Book appointments with top-rated doctors in minutes. Expert care, seamless scheduling, and trusted medical support — all in one place.</p>
+    <div class="hero-actions">
+      <a href="/appointment" class="btn-primary">📅 Book Appointment</a>
+      <a href="/doctors" class="btn-outline">Meet Our Doctors</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-number">50+</span>
+        <span class="stat-label">Expert Doctors</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">10k+</span>
+        <span class="stat-label">Patients Served</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">15+</span>
+        <span class="stat-label">Specialties</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">4.9★</span>
+        <span class="stat-label">Average Rating</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section section-alt">
+  <div class="section-header fade-up">
+    <div class="section-tag">Why Choose Us</div>
+    <h2>Healthcare Made Simple</h2>
+    <p>Everything you need for a seamless medical experience, designed with you in mind.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card fade-up">
+      <div class="feature-icon">⚡</div>
+      <h3>Instant Booking</h3>
+      <p>Book your appointment in under 2 minutes. Choose your doctor, pick a slot, and you're confirmed.</p>
+    </div>
+    <div class="feature-card fade-up">
+      <div class="feature-icon">🏥</div>
+      <h3>Top Specialists</h3>
+      <p>Access cardiologists, neurologists, dentists, and 15+ more specialties — all verified & experienced.</p>
+    </div>
+    <div class="feature-card fade-up">
+      <div class="feature-icon">📱</div>
+      <h3>Smart Reminders</h3>
+      <p>Get notified before your appointment. Never miss a scheduled visit with our smart reminder system.</p>
+    </div>
+    <div class="feature-card fade-up">
+      <div class="feature-icon">📋</div>
+      <h3>Digital Records</h3>
+      <p>Your appointment history and medical notes are stored securely and accessible anytime.</p>
+    </div>
+    <div class="feature-card fade-up">
+      <div class="feature-icon">🔒</div>
+      <h3>Privacy First</h3>
+      <p>Your health data is encrypted and private. We follow strict HIPAA-compliant data practices.</p>
+    </div>
+    <div class="feature-card fade-up">
+      <div class="feature-icon">💬</div>
+      <h3>24/7 Support</h3>
+      <p>Our care team is always available to help you reschedule, answer questions, or provide guidance.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DOCTORS PREVIEW -->
+<section class="section">
+  <div class="section-header fade-up">
+    <div class="section-tag">Our Team</div>
+    <h2>Meet Top Doctors</h2>
+    <p>Highly qualified specialists ready to provide the best care possible.</p>
+  </div>
+
+  <div class="doctors-grid">
+    <div class="doctor-card fade-up">
+      <div class="doctor-card-header">
+        <div class="doctor-avatar">👨‍⚕️</div>
+        <div class="doctor-name">Dr. Arjun Sharma</div>
+        <div class="doctor-specialty">Cardiologist</div>
+      </div>
+      <div class="doctor-card-body">
+        <div class="doctor-meta">
+          <div class="meta-item">
+            <span class="meta-value">12+</span>
+            <span class="meta-label">Years Exp.</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-value">4.9★</span>
+            <span class="meta-label">Rating</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-value">800+</span>
+            <span class="meta-label">Patients</span>
+          </div>
+        </div>
+        <div class="doctor-tags">
+          <span class="tag">Heart Disease</span>
+          <span class="tag">ECG</span>
+          <span class="tag">Hypertension</span>
+        </div>
+        <a href="/appointment" class="btn-book">Book Appointment →</a>
+      </div>
+    </div>
+
+    <div class="doctor-card fade-up">
+      <div class="doctor-card-header">
+        <div class="doctor-avatar">👩‍⚕️</div>
+        <div class="doctor-name">Dr. Priya Patel</div>
+        <div class="doctor-specialty">Dentist</div>
+      </div>
+      <div class="doctor-card-body">
+        <div class="doctor-meta">
+          <div class="meta-item">
+            <span class="meta-value">8+</span>
+            <span class="meta-label">Years Exp.</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-value">4.8★</span>
+            <span class="meta-label">Rating</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-value">600+</span>
+            <span class="meta-label">Patients</span>
+          </div>
+        </div>
+        <div class="doctor-tags">
+          <span class="tag">Orthodontics</span>
+          <span class="tag">Root Canal</span>
+          <span class="tag">Whitening</span>
+        </div>
+        <a href="/appointment" class="btn-book">Book Appointment →</a>
+      </div>
+    </div>
+
+    <div class="doctor-card fade-up">
+      <div class="doctor-card-header">
+        <div class="doctor-avatar">👨‍⚕️</div>
+        <div class="doctor-name">Dr. Rahul Singh</div>
+        <div class="doctor-specialty">Neurologist</div>
+      </div>
+      <div class="doctor-card-body">
+        <div class="doctor-meta">
+          <div class="meta-item">
+            <span class="meta-value">15+</span>
+            <span class="meta-label">Years Exp.</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-value">4.9★</span>
+            <span class="meta-label">Rating</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-value">1k+</span>
+            <span class="meta-label">Patients</span>
+          </div>
+        </div>
+        <div class="doctor-tags">
+          <span class="tag">Migraines</span>
+          <span class="tag">Epilepsy</span>
+          <span class="tag">Stroke Care</span>
+        </div>
+        <a href="/appointment" class="btn-book">Book Appointment →</a>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center; margin-top:40px;">
+    <a href="/doctors" class="btn-primary">View All Doctors →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-brand" style="margin-bottom:8px;">
+        <div class="logo-icon">🩺</div>
+        <span style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:white;">Prescripto</span>
+      </div>
+      <p>Your trusted healthcare partner. Connecting patients with top specialists for better health outcomes.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="#">General Consultation</a></li>
+        <li><a href="#">Specialist Care</a></li>
+        <li><a href="#">Lab Tests</a></li>
+        <li><a href="#">Health Checkup</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Quick Links</h5>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/doctors">Doctors</a></li>
+        <li><a href="/appointment">Book Appointment</a></li>
+        <li><a href="/register">Register</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <ul>
+        <li><a href="#">📞 +91 98765 43210</a></li>
+        <li><a href="#">✉️ support@prescripto.in</a></li>
+        <li><a href="#">📍 Pune, Maharashtra</a></li>
+        <li><a href="#">🕐 24/7 Support</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Prescripto. All rights reserved.</span>
+    <span>Made with ❤️ for better healthcare</span>
+  </div>
+</footer>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="/static/js/script.js"></script>
+</body>
+</html>

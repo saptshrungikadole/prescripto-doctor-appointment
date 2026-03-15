@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Appointment — Prescripto</title>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="appointment-page">
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <a href="/" class="nav-brand">
+      <div class="logo-icon">🩺</div>
+      <span>Prescripto</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/doctors">Doctors</a></li>
+      <li><a href="/appointment">Book Appointment</a></li>
+      <li><a href="/register">Register</a></li>
+      <li><a href="/login" class="btn-nav">Login →</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <div class="appointment-hero">
+    <div class="hero-badge" style="display:inline-flex;margin-bottom:16px;">📅 Easy Online Booking</div>
+    <h1>Book Your Appointment</h1>
+    <p>Complete in 3 easy steps — takes under 2 minutes</p>
+  </div>
+
+  <!-- APPOINTMENT FORM CONTAINER -->
+  <div class="appointment-container">
+    <div class="appointment-card">
+
+      <!-- STEPS HEADER -->
+      <div class="steps-header">
+        <div class="step-indicator">
+          <div class="step-dot active" id="dot-1">1</div>
+          <div>
+            <div class="step-label active" id="label-1">Patient Info</div>
+          </div>
+        </div>
+        <div class="step-connector" id="conn-1"></div>
+        <div class="step-indicator">
+          <div class="step-dot" id="dot-2">2</div>
+          <div>
+            <div class="step-label" id="label-2">Select Doctor</div>
+          </div>
+        </div>
+        <div class="step-connector" id="conn-2"></div>
+        <div class="step-indicator">
+          <div class="step-dot" id="dot-3">3</div>
+          <div>
+            <div class="step-label" id="label-3">Confirm Booking</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 1: Patient Info -->
+      <div class="form-section" id="step-1">
+        <h4>👤 Patient Information</h4>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <div class="input-wrap">
+              <span class="input-icon">👤</span>
+              <input type="text" id="patientName" placeholder="Your full name" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Phone Number *</label>
+            <div class="input-wrap">
+              <span class="input-icon">📱</span>
+              <input type="tel" id="patientPhone" placeholder="+91 98765 43210" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Email Address *</label>
+            <div class="input-wrap">
+              <span class="input-icon">✉️</span>
+              <input type="email" id="patientEmail" placeholder="your@email.com" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Age</label>
+            <div class="input-wrap">
+              <span class="input-icon">🎂</span>
+              <input type="number" id="patientAge" placeholder="25" min="1" max="120">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Reason for Visit *</label>
+          <div class="input-wrap">
+            <textarea id="reason" placeholder="Briefly describe your symptoms or reason for the appointment..." style="padding:12px 14px;min-height:90px;" required></textarea>
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;margin-top:8px;">
+          <button class="btn-primary" onclick="goToStep(2)" style="border:none;cursor:pointer;">
+            Continue →
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Select Doctor & Time -->
+      <div class="form-section" id="step-2" style="display:none;">
+        <h4>🩺 Select Doctor & Schedule</h4>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Specialty *</label>
+            <div class="input-wrap">
+              <span class="input-icon">🏥</span>
+              <select id="specialty" onchange="updateDoctors()" required>
+                <option value="" disabled selected>Choose Specialty</option>
+                <option value="cardiology">❤️ Cardiology</option>
+                <option value="dentist">🦷 Dentist</option>
+                <option value="neurology">🧠 Neurology</option>
+                <option value="dermatology">✨ Dermatology</option>
+                <option value="pediatrics">👶 Pediatrics</option>
+                <option value="orthopedic">🦴 Orthopedic</option>
+                <option value="general">🩺 General Medicine</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Select Doctor *</label>
+            <div class="input-wrap">
+              <span class="input-icon">👨‍⚕️</span>
+              <select id="doctor" required>
+                <option value="" disabled selected>Choose Specialty First</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Appointment Date *</label>
+            <div class="input-wrap">
+              <span class="input-icon">📅</span>
+              <input type="date" id="apptDate" onchange="updateSlots()" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Appointment Type</label>
+            <div class="input-wrap">
+              <span class="input-icon">🏥</span>
+              <select id="apptType">
+                <option value="in-person">🏥 In-Person Visit</option>
+                <option value="video">💻 Video Consultation</option>
+                <option value="phone">📞 Phone Consultation</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Available Time Slots *</label>
+          <div class="time-slots" id="timeSlots">
+            <div style="color:var(--gray-400);font-size:0.88rem;padding:12px 0;">Please select a date to see available slots</div>
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;margin-top:8px;">
+          <button onclick="goToStep(1)" style="background:none;border:1.5px solid var(--gray-200);padding:12px 24px;border-radius:10px;font-family:'DM Sans',sans-serif;font-weight:600;cursor:pointer;color:var(--gray-600);">
+            ← Back
+          </button>
+          <button class="btn-primary" onclick="goToStep(3)" style="border:none;cursor:pointer;">
+            Continue →
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Confirm -->
+      <div class="form-section" id="step-3" style="display:none;">
+        <h4>✅ Confirm Your Appointment</h4>
+
+        <div class="summary-box">
+          <div class="summary-row">
+            <span class="label">Patient Name</span>
+            <span class="value" id="sum-name">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">Phone</span>
+            <span class="value" id="sum-phone">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">Email</span>
+            <span class="value" id="sum-email">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">Doctor</span>
+            <span class="value" id="sum-doctor">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">Specialty</span>
+            <span class="value" id="sum-spec">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">Date & Time</span>
+            <span class="value" id="sum-datetime">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">Type</span>
+            <span class="value" id="sum-type">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">Reason</span>
+            <span class="value" id="sum-reason">—</span>
+          </div>
+        </div>
+
+        <!-- Consent -->
+        <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;margin-bottom:24px;">
+          <input type="checkbox" id="consent" required style="width:16px;height:16px;margin-top:2px;accent-color:var(--teal);flex-shrink:0;">
+          <span style="font-size:0.85rem;color:var(--gray-600);line-height:1.6;">
+            I confirm the above details are correct. I agree to the 
+            <a href="#" style="color:var(--teal-dark);font-weight:600;">cancellation policy</a> 
+            and consent to the appointment.
+          </span>
+        </label>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <button onclick="goToStep(2)" style="background:none;border:1.5px solid var(--gray-200);padding:12px 24px;border-radius:10px;font-family:'DM Sans',sans-serif;font-weight:600;cursor:pointer;color:var(--gray-600);">
+            ← Back
+          </button>
+          <button class="btn-primary" onclick="submitAppointment()" style="border:none;cursor:pointer;background:linear-gradient(135deg,var(--teal),var(--teal-dark));">
+            🎉 Confirm Appointment
+          </button>
+        </div>
+      </div>
+
+      <!-- SUCCESS STATE -->
+      <div class="form-section" id="step-success" style="display:none;text-align:center;padding:60px 36px;">
+        <div style="font-size:5rem;margin-bottom:20px;animation:float 2s ease-in-out infinite;">✅</div>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--navy);margin-bottom:12px;">Appointment Confirmed!</h2>
+        <p style="color:var(--gray-600);max-width:400px;margin:0 auto 32px;line-height:1.8;">
+          Your appointment has been successfully booked. You will receive a confirmation on your email and phone.
+        </p>
+        <div style="background:rgba(0,201,167,0.08);border:1px solid rgba(0,201,167,0.2);border-radius:14px;padding:20px;margin-bottom:32px;max-width:360px;margin-left:auto;margin-right:auto;">
+          <div style="font-size:0.8rem;color:var(--gray-400);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">Booking Reference</div>
+          <div id="bookingRef" style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:var(--teal-dark);letter-spacing:2px;">PX-000000</div>
+        </div>
+        <div style="display:flex;gap:12px;justify-content:center;">
+          <a href="/" class="btn-outline" style="color:var(--navy);border-color:var(--gray-200);">Go Home</a>
+          <a href="/appointment" class="btn-primary">Book Another</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+<script src="/static/js/script.js"></script>
+<script>
+  const doctors = {
+    cardiology: ['Dr. Arjun Sharma', 'Dr. Deepak Nair'],
+    dentist: ['Dr. Priya Patel', 'Dr. Sonal Joshi'],
+    neurology: ['Dr. Rahul Singh', 'Dr. Meena Krishnan'],
+    dermatology: ['Dr. Ananya Gupta', 'Dr. Rohan Kapoor'],
+    pediatrics: ['Dr. Vikram Mehta', 'Dr. Sunita Bhat'],
+    orthopedic: ['Dr. Kavita Rao', 'Dr. Amit Desai'],
+    general: ['Dr. Farhan Khan', 'Dr. Pooja Iyer'],
+  };
+
+  const slots = ['9:00 AM','9:30 AM','10:00 AM','10:30 AM','11:00 AM','11:30 AM','2:00 PM','2:30 PM','3:00 PM','3:30 PM','4:00 PM','4:30 PM'];
+  let selectedSlot = '';
+  let currentStep = 1;
+
+  // Set min date to today
+  const today = new Date().toISOString().split('T')[0];
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('apptDate').min = today;
+  });
+
+  function goToStep(step) {
+    if (step === 2) {
+      const name = document.getElementById('patientName').value.trim();
+      const phone = document.getElementById('patientPhone').value.trim();
+      const email = document.getElementById('patientEmail').value.trim();
+      if (!name || !phone || !email) {
+        showToast('Please fill in all required fields', 'error');
+        return;
+      }
+    }
+    if (step === 3) {
+      const doc = document.getElementById('doctor').value;
+      const date = document.getElementById('apptDate').value;
+      if (!doc || doc === '' || !date || !selectedSlot) {
+        showToast('Please select a doctor, date, and time slot', 'error');
+        return;
+      }
+      buildSummary();
+    }
+
+    document.querySelectorAll('[id^="step-"]').forEach(s => { if (!s.id.includes('success')) s.style.display = 'none'; });
+    document.getElementById('step-' + step).style.display = 'block';
+    currentStep = step;
+    updateStepIndicator(step);
+  }
+
+  function updateStepIndicator(active) {
+    for (let i = 1; i <= 3; i++) {
+      const dot = document.getElementById('dot-' + i);
+      const lbl = document.getElementById('label-' + i);
+      if (i < active) { dot.className = 'step-dot done'; dot.textContent = '✓'; }
+      else if (i === active) { dot.className = 'step-dot active'; dot.textContent = i; }
+      else { dot.className = 'step-dot'; dot.textContent = i; }
+      lbl.className = 'step-label' + (i === active ? ' active' : '');
+    }
+  }
+
+  function updateDoctors() {
+    const spec = document.getElementById('specialty').value;
+    const sel = document.getElementById('doctor');
+    sel.innerHTML = '<option value="" disabled selected>Select Doctor</option>';
+    (doctors[spec] || []).forEach(d => {
+      const opt = document.createElement('option');
+      opt.value = d; opt.textContent = d;
+      sel.appendChild(opt);
+    });
+  }
+
+  function updateSlots() {
+    const date = document.getElementById('apptDate').value;
+    if (!date) return;
+    selectedSlot = '';
+    const container = document.getElementById('timeSlots');
+    container.innerHTML = '';
+    // Randomly mark some as unavailable
+    const unavailable = [2, 5, 8];
+    slots.forEach((slot, i) => {
+      const div = document.createElement('div');
+      div.className = 'time-slot' + (unavailable.includes(i) ? ' unavailable' : '');
+      div.textContent = slot;
+      if (!unavailable.includes(i)) {
+        div.onclick = () => {
+          document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+          div.classList.add('selected');
+          selectedSlot = slot;
+        };
+      }
+      container.appendChild(div);
+    });
+  }
+
+  function buildSummary() {
+    document.getElementById('sum-name').textContent = document.getElementById('patientName').value;
+    document.getElementById('sum-phone').textContent = document.getElementById('patientPhone').value;
+    document.getElementById('sum-email').textContent = document.getElementById('patientEmail').value;
+    document.getElementById('sum-doctor').textContent = document.getElementById('doctor').value;
+    const specSel = document.getElementById('specialty');
+    document.getElementById('sum-spec').textContent = specSel.options[specSel.selectedIndex]?.text || '—';
+    const dateVal = document.getElementById('apptDate').value;
+    const dateFormatted = dateVal ? new Date(dateVal).toLocaleDateString('en-IN', {weekday:'long',year:'numeric',month:'long',day:'numeric'}) : '—';
+    document.getElementById('sum-datetime').textContent = dateFormatted + ' at ' + selectedSlot;
+    const typeSel = document.getElementById('apptType');
+    document.getElementById('sum-type').textContent = typeSel.options[typeSel.selectedIndex]?.text || '—';
+    document.getElementById('sum-reason').textContent = document.getElementById('reason').value || '—';
+  }
+
+  function submitAppointment() {
+    if (!document.getElementById('consent').checked) {
+      showToast('Please confirm your consent to proceed', 'error');
+      return;
+    }
+    const ref = 'PX-' + Math.floor(100000 + Math.random() * 900000);
+    document.getElementById('bookingRef').textContent = ref;
+    document.querySelectorAll('[id^="step-"]').forEach(s => s.style.display = 'none');
+    document.getElementById('step-success').style.display = 'block';
+    showToast('🎉 Appointment booked successfully!', 'success');
+  }
+</script>
+</body>
+</html>

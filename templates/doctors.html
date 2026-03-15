@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Doctors — Prescripto</title>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <a href="/" class="nav-brand">
+    <div class="logo-icon">🩺</div>
+    <span>Prescripto</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/doctors">Doctors</a></li>
+    <li><a href="/appointment">Book Appointment</a></li>
+    <li><a href="/register">Register</a></li>
+    <li><a href="/login" class="btn-nav">Login →</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<div style="padding: 120px 5% 60px; background: linear-gradient(135deg, var(--navy) 0%, #1a3a5c 100%); text-align: center; position: relative; overflow: hidden;">
+  <div style="position:absolute;inset:0;background:radial-gradient(circle at 30% 50%, rgba(0,201,167,0.12) 0%, transparent 60%);"></div>
+  <div style="position:relative;z-index:2;">
+    <div class="hero-badge" style="display:inline-flex;margin-bottom:16px;">✦ 50+ Verified Doctors</div>
+    <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.5rem);color:white;font-weight:700;margin-bottom:12px;">Find Your Specialist</h1>
+    <p style="color:rgba(255,255,255,0.6);font-size:1rem;max-width:480px;margin:0 auto;">Browse our team of top-rated specialists across 15+ medical disciplines.</p>
+  </div>
+</div>
+
+<!-- SEARCH & FILTER -->
+<div class="section section-alt" style="padding-top: 60px; padding-bottom: 60px;">
+
+  <div class="search-bar">
+    <span style="font-size:18px;">🔍</span>
+    <input type="text" placeholder="Search by doctor name or specialty..." id="searchInput" oninput="filterDoctors()">
+    <button class="filter-chip active" onclick="filterBySpec('all', this)">All</button>
+    <button class="filter-chip" onclick="filterBySpec('cardiologist', this)">❤️ Cardiology</button>
+    <button class="filter-chip" onclick="filterBySpec('dentist', this)">🦷 Dentist</button>
+    <button class="filter-chip" onclick="filterBySpec('neurologist', this)">🧠 Neurology</button>
+    <button class="filter-chip" onclick="filterBySpec('dermatologist', this)">✨ Dermatology</button>
+    <button class="filter-chip" onclick="filterBySpec('pediatrician', this)">👶 Pediatrics</button>
+    <button class="search-btn" onclick="filterDoctors()">Search</button>
+  </div>
+
+  <!-- Sort + Count -->
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;">
+    <div id="resultCount" style="color:var(--gray-600);font-size:0.9rem;font-weight:500;">Showing <strong>8 doctors</strong></div>
+    <select onchange="sortDoctors(this.value)"
+      style="border:1.5px solid var(--gray-200);border-radius:8px;padding:8px 12px;font-family:'DM Sans',sans-serif;color:var(--gray-700);outline:none;cursor:pointer;">
+      <option value="rating">Sort by Rating</option>
+      <option value="experience">Sort by Experience</option>
+      <option value="name">Sort by Name</option>
+    </select>
+  </div>
+
+  <!-- DOCTORS GRID -->
+  <div class="doctors-grid" id="doctorsGrid">
+
+    <div class="doctor-card fade-up" data-spec="cardiologist" data-name="Dr. Arjun Sharma">
+      <div class="doctor-card-header">
+        <div style="position:absolute;top:14px;right:14px;background:rgba(34,197,94,0.2);color:#4ade80;font-size:0.72rem;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:0.5px;">● AVAILABLE</div>
+        <div class="doctor-avatar">👨‍⚕️</div>
+        <div class="doctor-name">Dr. Arjun Sharma</div>
+        <div class="doctor-specialty">Cardiologist</div>
+      </div>
+      <div class="doctor-card-body">
+        <div class="doctor-meta">
+          <div class="meta-item"><span class="meta-value">12+</span><span class="meta-label">Years</span></div>
+          <div class="meta-item"><span class="meta-value">4.9★</span><span class="meta-label">Rating</span></div>
+          <div class="meta-item"><span class="meta-value">800+</span><span class="meta-label">Patients</span></div>
+        </div>
+        <div class="doctor-tags">
+          <span class="tag">Heart Disease</span><span class="tag">ECG</span><span class="tag">Hypertension</span>
+        </div>
+        <p style="font-size:0.84rem;color:var(--gray-600);line-height:1.6;margin-bottom:16px;">MBBS, MD (Cardiology) — Apollo Hospital. Expert in interventional cardiology and cardiac rehabilitation.</p>
+        <div style="display:flex;gap:10px;">
+          <a href="/appointment" class="btn-book" style="flex:1;">Book →</a>
+          <button onclick="showProfile('Dr. Arjun Sharma')" style="padding:10px 14px;border:1.5px solid var(--gray-200);border-radius:10px;background:white;cursor:pointer;font-size:14px;">👁️</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="doctor-card fade-up" data-spec="dentist" data-name="Dr. Priya Patel">
+      <div class="doctor-card-header">
+        <div style="position:absolute;top:14px;right:14px;background:rgba(34,197,94,0.2);color:#4ade80;font-size:0.72rem;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:0.5px;">● AVAILABLE</div>
+        <div class="doctor-avatar">👩‍⚕️</div>
+        <div class="doctor-name">Dr. Priya Patel</div>
+        <div class="doctor-specialty">Dentist</div>
+      </div>
+      <div class="doctor-card-body">
+        <div class="doctor-meta">
+          <div class="meta-item"><span class="meta-value">8+</span><span class="meta-label">Years</span></div>
+          <div class="meta-item"><span class="meta-value">4.8★</span><span class="meta-label">Rating</span></div>
+          <div class="meta-item"><span class="meta-value">600+</span><span class="meta-label">Patients</span></div>
+        </div>
+        <div class="doctor-tags"><span class="tag">Orthodontics</span><span class="tag">Root Canal</span><span class="tag">Whitening</span></div>
+        <p style="font-size:0.84rem;color:var(--gray-600);line-height:1.6;margin-bottom:16px;">BDS, MDS (Orthodontics) — Fortis Hospital. Specializes in cosmetic dentistry and dental implants.</p>
+        <div style="display:flex;gap:10px;">
+          <a href="/appointment" class="btn-book" style="flex:1;">Book →</a>
+          <button onclick="showProfile('Dr. Priya Patel')" style="padding:10px 14px;border:1.5px solid var(--gray-200);border-radius:10px;background:white;cursor:pointer;font-size:14px;">👁️</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="doctor-card fade-up" data-spec="neurologist" data-name="Dr. Rahul Singh">
+      <div class="doctor-card-header">
+        <div style="position:absolute;top:14px;right:14px;background:rgba(251,191,36,0.2);color:#fbbf24;font-size:0.72rem;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:0.5px;">● BUSY</div>
+        <div class="doctor-avatar">👨‍⚕️</div>
+        <div class="doctor-name">Dr. Rahul Singh</div>
+        <div class="doctor-specialty">Neurologist</div>
+      </div>
+      <div class="doctor-card-body">
+        <div class="doctor-meta">
+          <div class="meta-item"><span class="meta-value">15+</span><span class="meta-label">Years</span></div>
+          <div class="meta-item"><span class="meta-value">4.9★</span><span class="meta-label">Rating</span></div>
+          <div class="meta-item"><span class="meta-value">1k+</span><span class="meta-label">Patients</span></div>
+        </div>
+        <div class="doctor-tags"><span class="tag">Migraines</span><span class="tag">Epilepsy</span><span class="tag">Stroke Care</span></div>
+        <p style="font-size:0.84rem;color:var(--gray-600);line-height:1.6;margin-bottom:16px;">MBBS, DM (Neurology) — AIIMS Delhi. Pioneer in minimally invasive neurosurgery techniques.</p>
+        <div style="display:flex;gap:10px;">
+          <a href="/appointment" class="btn-book" style="flex:1;">Book →</a>
+          <button onclick="showProfile('Dr. Rahul Singh')" style="padding:10px 14px;border:1.5px solid var(--gray-200);border-radius:10px;background:white;cursor:pointer;font-size:14px;">👁️</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="doctor-card fade-up" data-spec="dermatologist" data-name="Dr. Ananya Gupta">
+      <div class="doctor-card-header">
+        <div style="position:absolute;top:14px;right:14px;background:rgba(34,197,94,0.2);color:#4ade80;font-size:0.72rem;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:0.5px;">● AVAILABLE</div>
+        <div class="doctor-avatar">👩‍⚕️</div>
+        <div class="doctor-name">Dr. Ananya Gupta</div>
+        <div class="doctor-specialty">Dermatologist</div>
+      </div>
+      <div class="doctor-card-body">
+        <div class="doctor-meta">
+          <div class="meta-item"><span class="meta-value">10+</span><span class="meta-label">Years</span></div>
+          <div class="meta-item"><span class="meta-value">4.7★</span><span class="meta-label">Rating</span></div>
+          <div class="meta-item"><span class="meta-value">500+</span><span class="meta-label">Patients</span></div>
+        </div>
+        <div class="doctor-tags"><span class="tag">Acne</span><span class="tag">Eczema</span><span class="tag">Skin Cancer</span></div>
+        <p style="font-size:0.84rem;color:var(--gray-600);line-height:1.6;margin-bottom:16px;">MBBS, MD (Dermatology) — PGIMER. Expert in cosmetic and medical dermatology procedures.</p>
+        <div style="display:flex;gap:10px;">
+          <a href="/appointment" class="btn-book" style="flex:1;">Book →</a>
+          <button onclick="showProfile('Dr. Ananya Gupta')" style="padding:10px 14px;border:1.5px solid var(--gray-200);border-radius:10px;background:white;cursor:pointer;font-size:14px;">👁️</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="doctor-card fade-up" data-spec="pediatrician" data-name="Dr. Vikram Mehta">
+      <div class="doctor-card-header">
+        <div style="position:absolute;top:14px;right:14px;background:rgba(34,197,94,0.2);color:#4ade80;font-size:0.72rem;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:0.5px;">● AVAILABLE</div>
+        <div class="doctor-avatar">👨‍⚕️</div>
+        <div class="doctor-name">Dr. Vikram Mehta</div>
+        <div class="doctor-specialty">Pediatrician</div>
+      </div>
+      <div class="doctor-card-body">
+        <div class="doctor-meta">
+          <div class="meta-item"><span class="meta-value">11+</span><span class="meta-label">Years</span></div>
+          <div class="meta-item"><span class="meta-value">4.8★</span><span class="meta-label">Rating</span></div>
+          <div class="meta-item"><span class="meta-value">900+</span><span class="meta-label">Patients</span></div>
+        </div>
+        <div class="doctor-tags"><span class="tag">Child Health</span><span class="tag">Vaccination</span><span class="tag">Growth</span></div>
+        <p style="font-size:0.84rem;color:var(--gray-600);line-height:1.6;margin-bottom:16px;">MBBS, MD (Pediatrics) — KEM Hospital. Specialized in neonatal care and child developmental issues.</p>
+        <div style="display:flex;gap:10px;">
+          <a href="/appointment" class="btn-book" style="flex:1;">Book →</a>
+          <button onclick="showProfile('Dr. Vikram Mehta')" style="padding:10px 14px;border:1.5px solid var(--gray-200);border-radius:10px;background:white;cursor:pointer;font-size:14px;">👁️</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="doctor-card fade-up" data-spec="orthopedic" data-name="Dr. Kavita Rao">
+      <div class="doctor-card-header">
+        <div style="position:absolute;top:14px;right:14px;background:rgba(239,68,68,0.2);color:#f87171;font-size:0.72rem;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:0.5px;">● ON LEAVE</div>
+        <div class="doctor-avatar">👩‍⚕️</div>
+        <div class="doctor-name">Dr. Kavita Rao</div>
+        <div class="doctor-specialty">Orthopedic</div>
+      </div>
+      <div class="doctor-card-body">
+        <div class="doctor-meta">
+          <div class="meta-item"><span class="meta-value">14+</span><span class="meta-label">Years</span></div>
+          <div class="meta-item"><span class="meta-value">4.6★</span><span class="meta-label">Rating</span></div>
+          <div class="meta-item"><span class="meta-value">700+</span><span class="meta-label">Patients</span></div>
+        </div>
+        <div class="doctor-tags"><span class="tag">Joint Pain</span><span class="tag">Spine</span><span class="tag">Sports Injury</span></div>
+        <p style="font-size:0.84rem;color:var(--gray-600);line-height:1.6;margin-bottom:16px;">MBBS, MS (Orthopedics) — Hinduja Hospital. Expert in arthroscopic surgery and joint replacement.</p>
+        <div style="display:flex;gap:10px;">
+          <a href="/appointment" class="btn-book" style="flex:1;opacity:0.6;pointer-events:none;">Unavailable</a>
+          <button onclick="showProfile('Dr. Kavita Rao')" style="padding:10px 14px;border:1.5px solid var(--gray-200);border-radius:10px;background:white;cursor:pointer;font-size:14px;">👁️</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- No results message -->
+  <div id="noResults" style="display:none;text-align:center;padding:60px 0;color:var(--gray-400);">
+    <div style="font-size:3rem;margin-bottom:12px;">🔍</div>
+    <div style="font-size:1.1rem;font-weight:600;margin-bottom:8px;color:var(--gray-600);">No doctors found</div>
+    <div style="font-size:0.9rem;">Try a different search term or filter</div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-bottom" style="justify-content:center;">
+    <span>© 2025 Prescripto. All rights reserved.</span>
+  </div>
+</footer>
+
+<div class="toast-container" id="toastContainer"></div>
+<script src="/static/js/script.js"></script>
+<script>
+  let activeSpec = 'all';
+
+  function filterBySpec(spec, btn) {
+    activeSpec = spec;
+    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    filterDoctors();
+  }
+
+  function filterDoctors() {
+    const q = document.getElementById('searchInput').value.toLowerCase();
+    const cards = document.querySelectorAll('#doctorsGrid .doctor-card');
+    let visible = 0;
+    cards.forEach(card => {
+      const name = card.dataset.name.toLowerCase();
+      const spec = card.dataset.spec;
+      const matchSpec = activeSpec === 'all' || spec === activeSpec;
+      const matchSearch = !q || name.includes(q) || spec.includes(q);
+      card.style.display = matchSpec && matchSearch ? '' : 'none';
+      if (matchSpec && matchSearch) visible++;
+    });
+    document.getElementById('resultCount').innerHTML = `Showing <strong>${visible} doctor${visible !== 1 ? 's' : ''}</strong>`;
+    document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  function showProfile(name) {
+    showToast(`Viewing profile for ${name}`, 'success');
+  }
+</script>
+</body>
+</html>
